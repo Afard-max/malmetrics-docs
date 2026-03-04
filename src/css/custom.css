@@ -1,0 +1,141 @@
+/* Paleta base (Modo Claro - por si el usuario decide usar el switch) */
+:root {
+  --ifm-color-primary: #06B6D4;
+  --ifm-color-primary-dark: #05a3bf;
+  --ifm-color-primary-darker: #059ab5;
+  --ifm-color-primary-darkest: #047f95;
+  --ifm-color-primary-light: #1fd0ec;
+  --ifm-color-primary-lighter: #35d5ee;
+  --ifm-color-primary-lightest: #76e3f4;
+  --ifm-font-family-base: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif;
+}
+
+/* PALETA MALMETRICS (MODO OSCURO)
+  Aquí inyectamos tus colores hexadecimales exactos
+*/
+[data-theme='dark'] {
+  --ifm-background-color: #0D0D1A; /* Fondo de la app principal */
+  --ifm-background-surface-color: #12122A; /* Fondo de las tarjetas */
+  --ifm-color-primary: #06B6D4; /* Acentos en cian */
+  
+  --ifm-text-color: #F1F5F9; /* slate-100 */
+  --ifm-heading-color: #F1F5F9;
+  --ifm-link-color: #06B6D4;
+  --ifm-link-hover-color: #7C3AED;
+  
+  --ifm-navbar-background-color: #0D0D1A; /* Topbar oscura */
+  --ifm-navbar-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+  
+  --ifm-menu-color: #94A3B8; /* Textos de la sidebar */
+  --ifm-menu-color-active: #06B6D4;
+  --ifm-menu-color-background-active: rgba(6, 182, 212, 0.1); /* Fondo activo de la sidebar */
+  
+  --ifm-footer-background-color: #12122A;
+  --ifm-toc-border-color: #1E1E2E;
+}
+
+/* ESTILOS PERSONALIZADOS */
+
+/* Hacemos que el título principal tenga el mismo gradiente de tu página */
+h1:first-child {
+  background: linear-gradient(to right, #7C3AED, #06B6D4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  width: fit-content;
+  font-weight: 900;
+}
+
+/* Estilizamos los bloques de código para que parezcan terminales */
+.theme-code-block {
+  border: 1px solid #2D2D4E;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+}
+
+/* Escondemos el banner superior gigante (Hero) de Docusaurus si aparece en tu home */
+.hero {
+  background-color: #12122A !important;
+}
+
+/* =========================================
+   ANIMACIÓN TÉRMICA DIAGONAL DEL FOOTER
+========================================= */
+
+@keyframes gradientDiagFlow {
+  0% {
+    /* Comienza en la esquina superior izquierda */
+    background-position: 0% 0%;
+  }
+  50% {
+    /* Viaja a la esquina inferior derecha */
+    background-position: 100% 100%;
+  }
+  100% {
+    /* Regresa a la esquina superior izquierda */
+    background-position: 0% 0%;
+  }
+}
+
+.footer {
+  /* Gradiente Lineal pronunciado con vectores de alto contraste */
+  background: linear-gradient(
+    -135deg, /* Ángulo diagonal estricto */
+    #0D0D1A 0%,     /* Fondo base */
+    #7C3AED 25%,    /* Morado vibrante */
+    #06B6D4 50%,    /* Cian vibrante */
+    #2D2D4E 75%,    /* Tono intermedio oscuro */
+    #0D0D1A 100%    /* Fondo base */
+  ) !important;
+  
+  /* Se sobredimensiona el fondo en ambos ejes para permitir la traslación */
+  background-size: 400% 400% !important;
+  
+  /* Se aplica la animación diagonal con un ciclo de 10 segundos */
+  animation: gradientDiagFlow 10s ease-in-out infinite !important;
+  
+  border-top: 1px solid #1E1E2E;
+  padding-bottom: 3rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ajuste de contraste para la tipografía del footer */
+.footer__title {
+  color: #F1F5F9 !important;
+  font-weight: 700;
+}
+
+.footer__link-item {
+  color: #94A3B8 !important;
+  transition: color 0.2s ease;
+}
+
+.footer__link-item:hover {
+  color: #06B6D4 !important;
+  text-decoration: none;
+}
+
+.footer__copyright {
+  color: #94A3B8 !important;
+  margin-top: 2rem;
+  font-size: 0.9rem;
+}
+
+/* =========================================
+   SIMETRÍA ESTRUCTURAL DEL FOOTER
+========================================= */
+
+@media (min-width: 768px) {
+  /* Selecciona la 3ra y 4ta columna del contenedor de enlaces */
+  .footer__links .col:nth-child(3),
+  .footer__links .col:nth-child(4) {
+    text-align: right;
+  }
+
+  /* Asegura que si los enlaces utilizan flexbox, respeten la gravedad derecha */
+  .footer__links .col:nth-child(3) ul,
+  .footer__links .col:nth-child(4) ul {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+}
