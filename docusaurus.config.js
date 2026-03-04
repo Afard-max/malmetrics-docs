@@ -11,6 +11,7 @@ const config = {
   baseUrl: '/malmetrics-docs/',
   organizationName: 'Afard-max',
   projectName: 'malmetrics-docs', 
+  trailingSlash: false, // <-- Parámetro inyectado para resolver el Warning
 
   onBrokenLinks: 'throw',
 
@@ -43,7 +44,6 @@ const config = {
       },
       navbar: {
         title: 'MALmetrics',
-        // Redirigimos el título al propio manual para que actúe como "Home" de la documentación
         logo: {
           src: 'img/malmetrics-logo.svg', 
           href: '/', 
@@ -51,7 +51,7 @@ const config = {
         },
         items: [
           {
-            href: 'http://localhost:5173/', // <-- Este es tu único portal de salida hacia la App
+            href: 'https://Afard-max.github.io/malmetrics/', // <-- Vector actualizado a producción
             label: 'Volver a la App',
             position: 'right',
             target: '_self',
@@ -66,7 +66,7 @@ const config = {
             items: [
               {
                 label: 'Correo Electrónico',
-                href: 'mailto:af.alexander.rd@gmail.com', // El protocolo 'mailto:' invoca el selector nativo del SO
+                href: 'mailto:af.alexander.rd@gmail.com', 
               },
               {
                 label: 'LinkedIn',
