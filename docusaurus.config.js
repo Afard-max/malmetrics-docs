@@ -81,6 +81,10 @@ const config = {
                 label: 'Perfil de GitHub',
                 href: 'https://github.com/Afard-max', 
               },
+              {
+                label: 'Perfil de GitLab',
+                href: 'https://gitlab.com/Afard-max',
+              },
             ],
           },
           {
