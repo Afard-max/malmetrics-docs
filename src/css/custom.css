@@ -58,55 +58,73 @@ h1:first-child {
 
 /* =========================================
    ANIMACIÓN TÉRMICA DIAGONAL DEL FOOTER
+   FIX: Se usa transform en lugar de background-position
+   para aprovechar la aceleración GPU en mobile (Android/iOS)
 ========================================= */
 
 @keyframes gradientDiagFlow {
-  0% {
-    /* Comienza en la esquina superior izquierda */
-    background-position: 0% 0%;
-  }
-  50% {
-    /* Viaja a la esquina inferior derecha */
-    background-position: 100% 100%;
-  }
-  100% {
-    /* Regresa a la esquina superior izquierda */
-    background-position: 0% 0%;
-  }
+  0%   { transform: translate(0%, 0%); }
+  50%  { transform: translate(-25%, -25%); }
+  100% { transform: translate(0%, 0%); }
 }
 
 .footer {
-  /* Gradiente Lineal pronunciado con vectores de alto contraste */
-  background: linear-gradient(
-    -135deg, /* Ángulo diagonal estricto */
-    #0D0D1A 0%,     /* Fondo base */
-    #7C3AED 25%,    /* Morado vibrante */
-    #06B6D4 50%,    /* Cian vibrante */
-    #2D2D4E 75%,    /* Tono intermedio oscuro */
-    #0D0D1A 100%    /* Fondo base */
-  ) !important;
-  
-  /* Se sobredimensiona el fondo en ambos ejes para permitir la traslación */
-  background-size: 400% 400% !important;
-  
-  /* Se aplica la animación diagonal con un ciclo de 10 segundos */
-  animation: gradientDiagFlow 10s ease-in-out infinite !important;
-  
   border-top: 1px solid #1E1E2E;
   padding-bottom: 3rem;
   position: relative;
   overflow: hidden;
 }
 
-/* Ajuste de contraste para la tipografía del footer */
+/* Capa 1 (fondo): gradiente animado */
+.footer::before {
+  content: '';
+  position: absolute;
+  inset: -50%; /* Sobredimensionamos para que el translate no deje huecos */
+  background: linear-gradient(
+    -135deg,
+    #0D0D1A 0%,
+    #7C3AED 25%,
+    #06B6D4 50%,
+    #2D2D4E 75%,
+    #0D0D1A 100%
+  );
+  background-size: 200% 200%;
+  animation: gradientDiagFlow 10s ease-in-out infinite;
+  z-index: 0;
+}
+
+/* Capa 2 (overlay): oscurece el gradiente para mejorar
+   la legibilidad del texto, especialmente en mobile */
+.footer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(13, 13, 26, 0.55);
+  z-index: 0;
+}
+
+/* Capa 3 (contenido): siempre por encima de los pseudo-elementos */
+.footer .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* =========================================
+   TIPOGRAFÍA DEL FOOTER
+   FIX: Mayor contraste y text-shadow para legibilidad
+   sobre el gradiente animado en todos los dispositivos
+========================================= */
+
 .footer__title {
-  color: #F1F5F9 !important;
+  color: #FFFFFF !important;
   font-weight: 700;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
 }
 
 .footer__link-item {
-  color: #94A3B8 !important;
+  color: #F1F5F9 !important;
   transition: color 0.2s ease;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
 }
 
 .footer__link-item:hover {
@@ -115,9 +133,10 @@ h1:first-child {
 }
 
 .footer__copyright {
-  color: #94A3B8 !important;
+  color: #CBD5E1 !important;
   margin-top: 2rem;
   font-size: 0.9rem;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 
 /* =========================================
